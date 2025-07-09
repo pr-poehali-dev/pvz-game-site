@@ -5,47 +5,501 @@ import Icon from "@/components/ui/icon";
 
 const Index = () => {
   const characters = [
+    // Основные растения
     {
       name: "Подсолнух",
       type: "plant",
       cost: 50,
       emoji: "🌻",
-      description: "Производит солнце",
+      description: "Производит 25 солнца каждые 24 секунды",
+      recharge: "Быстро",
     },
     {
       name: "Горохострел",
       type: "plant",
       cost: 100,
       emoji: "🌱",
-      description: "Стреляет горошинами",
+      description: "Стреляет горошинами по врагам",
+      damage: 20,
+      recharge: "Быстро",
     },
     {
       name: "Орех",
       type: "plant",
       cost: 50,
       emoji: "🥜",
-      description: "Защищает растения",
+      description: "Защищает растения от атак",
+      hp: 4000,
+      recharge: "Медленно",
     },
+    {
+      name: "Картофельная мина",
+      type: "plant",
+      cost: 25,
+      emoji: "🥔",
+      description: "Взрывает первого зомби в линии",
+      damage: 1800,
+      recharge: "Медленно",
+    },
+    {
+      name: "Снежный горох",
+      type: "plant",
+      cost: 175,
+      emoji: "❄️",
+      description: "Стреляет и замедляет врагов",
+      damage: 20,
+      recharge: "Быстро",
+    },
+    {
+      name: "Поедатель",
+      type: "plant",
+      cost: 150,
+      emoji: "🪴",
+      description: "Съедает зомби целиком",
+      recharge: "Быстро",
+    },
+    {
+      name: "Повторитель",
+      type: "plant",
+      cost: 200,
+      emoji: "🌿",
+      description: "Стреляет двумя горошинами",
+      damage: 40,
+      recharge: "Быстро",
+    },
+
+    // Ночные грибы
+    {
+      name: "Гриб-пуффер",
+      type: "plant",
+      cost: 0,
+      emoji: "🍄",
+      description: "Бесплатный стрелок (только ночью)",
+      damage: 20,
+      recharge: "Быстро",
+    },
+    {
+      name: "Солнечный гриб",
+      type: "plant",
+      cost: 25,
+      emoji: "🌞",
+      description: "Производит солнце ночью",
+      recharge: "Быстро",
+    },
+    {
+      name: "Дымовой гриб",
+      type: "plant",
+      cost: 75,
+      emoji: "💨",
+      description: "Проникает через экраны",
+      damage: 20,
+      recharge: "Быстро",
+    },
+    {
+      name: "Могильный гриб",
+      type: "plant",
+      cost: 75,
+      emoji: "⚰️",
+      description: "Уничтожает могилы",
+      recharge: "Быстро",
+    },
+    {
+      name: "Гипногриб",
+      type: "plant",
+      cost: 75,
+      emoji: "🌀",
+      description: "Заставляет зомби идти назад",
+      recharge: "Медленно",
+    },
+    {
+      name: "Ледяной гриб",
+      type: "plant",
+      cost: 75,
+      emoji: "🧊",
+      description: "Замораживает всех зомби",
+      recharge: "Очень медленно",
+    },
+    {
+      name: "Гриб-разрушитель",
+      type: "plant",
+      cost: 125,
+      emoji: "💥",
+      description: "Огромный взрыв с большим радиусом",
+      damage: 1800,
+      recharge: "Медленно",
+    },
+
+    // Водные растения
+    {
+      name: "Лилия",
+      type: "plant",
+      cost: 25,
+      emoji: "🪷",
+      description: "Платформа для других растений на воде",
+      recharge: "Быстро",
+    },
+    {
+      name: "Кабачок",
+      type: "plant",
+      cost: 50,
+      emoji: "🥒",
+      description: "Раздавливает зомби сверху",
+      damage: 1800,
+      recharge: "Медленно",
+    },
+    {
+      name: "Треугольник",
+      type: "plant",
+      cost: 100,
+      emoji: "📐",
+      description: "Стреляет 8 иглами во все стороны",
+      damage: 20,
+      recharge: "Быстро",
+    },
+    {
+      name: "Морской гриб",
+      type: "plant",
+      cost: 0,
+      emoji: "🫧",
+      description: "Водный стрелок (бесплатно)",
+      damage: 20,
+      recharge: "Быстро",
+    },
+
+    // Дневные растения
+    {
+      name: "Кактус",
+      type: "plant",
+      cost: 125,
+      emoji: "🌵",
+      description: "Стреляет иглами, может сдуть шары",
+      damage: 20,
+      recharge: "Быстро",
+    },
+    {
+      name: "Трёхгорошек",
+      type: "plant",
+      cost: 325,
+      emoji: "🟢",
+      description: "Стреляет по трём линиям",
+      damage: 60,
+      recharge: "Быстро",
+    },
+    {
+      name: "Острый камыш",
+      type: "plant",
+      cost: 25,
+      emoji: "🌾",
+      description: "Колет шины и замедляет",
+      recharge: "Быстро",
+    },
+    {
+      name: "Торчбумага",
+      type: "plant",
+      cost: 100,
+      emoji: "🔥",
+      description: "Поджигает зомби в линии",
+      damage: 40,
+      recharge: "Быстро",
+    },
+    {
+      name: "Высокий орех",
+      type: "plant",
+      cost: 125,
+      emoji: "🌰",
+      description: "Блокирует прыгающих зомби",
+      hp: 8000,
+      recharge: "Медленно",
+    },
+
+    // Продвинутые растения
+    {
+      name: "Морская звезда",
+      type: "plant",
+      cost: 0,
+      emoji: "⭐",
+      description: "Имитирует другие растения",
+      recharge: "Медленно",
+    },
+    {
+      name: "Кофейное зерно",
+      type: "plant",
+      cost: 75,
+      emoji: "☕",
+      description: "Пробуждает грибы днём",
+      recharge: "Быстро",
+    },
+    {
+      name: "Чеснок",
+      type: "plant",
+      cost: 50,
+      emoji: "🧄",
+      description: "Отвлекает зомби на соседние линии",
+      recharge: "Быстро",
+    },
+    {
+      name: "Зонтолист",
+      type: "plant",
+      cost: 100,
+      emoji: "☂️",
+      description: "Защищает от катапульт и баскетболов",
+      recharge: "Быстро",
+    },
+    {
+      name: "Ноготки",
+      type: "plant",
+      cost: 50,
+      emoji: "🌼",
+      description: "Производит солнце и отпугивает тлю",
+      recharge: "Быстро",
+    },
+    {
+      name: "Дыня-пульта",
+      type: "plant",
+      cost: 300,
+      emoji: "🍉",
+      description: "Стреляет дынями с большим уроном",
+      damage: 80,
+      recharge: "Быстро",
+    },
+    {
+      name: "Гатлинг-горох",
+      type: "plant",
+      cost: 250,
+      emoji: "🔫",
+      description: "Стреляет очередями горошин",
+      damage: 80,
+      recharge: "Быстро",
+    },
+    {
+      name: "Двойной подсолнух",
+      type: "plant",
+      cost: 150,
+      emoji: "🌻",
+      description: "Производит в два раза больше солнца",
+      recharge: "Быстро",
+    },
+    {
+      name: "Глум-гриб",
+      type: "plant",
+      cost: 150,
+      emoji: "☁️",
+      description: "Выпускает ядовитый газ в 3х3",
+      damage: 20,
+      recharge: "Быстро",
+    },
+    {
+      name: "Магнит-гриб",
+      type: "plant",
+      cost: 100,
+      emoji: "🧲",
+      description: "Снимает металлические предметы",
+      recharge: "Быстро",
+    },
+    {
+      name: "Золотой магнит",
+      type: "plant",
+      cost: 50,
+      emoji: "💰",
+      description: "Собирает монеты автоматически",
+      recharge: "Быстро",
+    },
+    {
+      name: "Острый стрелок",
+      type: "plant",
+      cost: 200,
+      emoji: "🎯",
+      description: "Пробивает броню зомби",
+      damage: 65,
+      recharge: "Быстро",
+    },
+    {
+      name: "Початок-пушка",
+      type: "plant",
+      cost: 100,
+      emoji: "🌽",
+      description: "Стреляет кукурузными зёрнами и маслом",
+      damage: 20,
+      recharge: "Быстро",
+    },
+    {
+      name: "Зимняя дыня",
+      type: "plant",
+      cost: 200,
+      emoji: "❄️",
+      description: "Замедляющие ледяные дыни",
+      damage: 80,
+      recharge: "Быстро",
+    },
+
+    // Зомби
     {
       name: "Обычный зомби",
       type: "zombie",
       hp: 200,
       emoji: "🧟‍♂️",
       description: "Медленный и опасный",
+      speed: "Медленно",
+    },
+    {
+      name: "Флаговый зомби",
+      type: "zombie",
+      hp: 200,
+      emoji: "🚩",
+      description: "Сигнализирует о большой волне",
+      speed: "Медленно",
     },
     {
       name: "Конусоголовый",
       type: "zombie",
       hp: 640,
-      emoji: "🧟‍♀️",
+      emoji: "🚧",
       description: "Прочная защита головы",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби с шестом",
+      type: "zombie",
+      hp: 500,
+      emoji: "🏃‍♂️",
+      description: "Перепрыгивает через первое растение",
+      speed: "Быстро",
     },
     {
       name: "Ведроголовый",
       type: "zombie",
       hp: 1370,
-      emoji: "🧟",
+      emoji: "🪣",
       description: "Очень крепкий",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби-газетчик",
+      type: "zombie",
+      hp: 200,
+      emoji: "📰",
+      description: "Злится когда теряет газету",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби на двери",
+      type: "zombie",
+      hp: 1370,
+      emoji: "🚪",
+      description: "Использует дверь как щит",
+      speed: "Медленно",
+    },
+    {
+      name: "Футбольный зомби",
+      type: "zombie",
+      hp: 1400,
+      emoji: "🏈",
+      description: "Очень быстрый и сильный",
+      speed: "Очень быстро",
+    },
+    {
+      name: "Танцующий зомби",
+      type: "zombie",
+      hp: 500,
+      emoji: "🕺",
+      description: "Призывает зомби-танцоров",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби-танцор",
+      type: "zombie",
+      hp: 200,
+      emoji: "💃",
+      description: "Выходит из земли",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби-ныряльщик",
+      type: "zombie",
+      hp: 500,
+      emoji: "🤿",
+      description: "Плавает под водой",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби на санках",
+      type: "zombie",
+      hp: 1350,
+      emoji: "🛷",
+      description: "Оставляет ледяной след",
+      speed: "Быстро",
+    },
+    {
+      name: "Зомби-дельфинёр",
+      type: "zombie",
+      hp: 500,
+      emoji: "🐬",
+      description: "Прыгает через водные растения",
+      speed: "Быстро",
+    },
+    {
+      name: "Зомби-Джек",
+      type: "zombie",
+      hp: 500,
+      emoji: "🎃",
+      description: "Взрывается при смерти",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби на шаре",
+      type: "zombie",
+      hp: 200,
+      emoji: "🎈",
+      description: "Летает над растениями",
+      speed: "Быстро",
+    },
+    {
+      name: "Зомби-шахтёр",
+      type: "zombie",
+      hp: 500,
+      emoji: "⛏️",
+      description: "Копает туннели под растениями",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомби-попрыгун",
+      type: "zombie",
+      hp: 500,
+      emoji: "🦘",
+      description: "Прыгает через растения",
+      speed: "Быстро",
+    },
+    {
+      name: "Зомби на лестнице",
+      type: "zombie",
+      hp: 500,
+      emoji: "🪜",
+      description: "Перелезает через высокие растения",
+      speed: "Медленно",
+    },
+    {
+      name: "Катапульта-зомби",
+      type: "zombie",
+      hp: 500,
+      emoji: "🏰",
+      description: "Стреляет баскетболами на заднюю линию",
+      speed: "Медленно",
+    },
+    {
+      name: "Гаргантюа",
+      type: "zombie",
+      hp: 3000,
+      emoji: "👹",
+      description: "Гигантский зомби с булавой",
+      speed: "Медленно",
+    },
+    {
+      name: "Зомботаник",
+      type: "zombie",
+      hp: 1800,
+      emoji: "🔬",
+      description: "Финальный босс игры",
+      speed: "Медленно",
     },
   ];
 
@@ -178,17 +632,45 @@ const Index = () => {
                   <p className="text-sm text-gray-600 mb-4">
                     {char.description}
                   </p>
-                  <div className="flex justify-center items-center space-x-2">
+                  <div className="flex flex-col items-center space-y-2">
                     {char.type === "plant" ? (
-                      <Badge className="bg-sun-yellow text-earth-brown font-bold">
-                        <Icon name="Coins" size={16} className="mr-1" />
-                        {char.cost} солнца
-                      </Badge>
+                      <div className="flex flex-wrap justify-center gap-2">
+                        <Badge className="bg-sun-yellow text-earth-brown font-bold">
+                          <Icon name="Coins" size={16} className="mr-1" />
+                          {char.cost} солнца
+                        </Badge>
+                        {char.damage && (
+                          <Badge className="bg-plant-green text-white font-bold">
+                            <Icon name="Zap" size={16} className="mr-1" />
+                            {char.damage} урона
+                          </Badge>
+                        )}
+                        {char.hp && (
+                          <Badge className="bg-earth-brown text-white font-bold">
+                            <Icon name="Shield" size={16} className="mr-1" />
+                            {char.hp} HP
+                          </Badge>
+                        )}
+                        {char.recharge && (
+                          <Badge variant="outline" className="text-gray-600">
+                            <Icon name="Clock" size={16} className="mr-1" />
+                            {char.recharge}
+                          </Badge>
+                        )}
+                      </div>
                     ) : (
-                      <Badge className="bg-zombie-orange text-white font-bold">
-                        <Icon name="Heart" size={16} className="mr-1" />
-                        {char.hp} HP
-                      </Badge>
+                      <div className="flex flex-wrap justify-center gap-2">
+                        <Badge className="bg-zombie-orange text-white font-bold">
+                          <Icon name="Heart" size={16} className="mr-1" />
+                          {char.hp} HP
+                        </Badge>
+                        {char.speed && (
+                          <Badge className="bg-red-600 text-white font-bold">
+                            <Icon name="Gauge" size={16} className="mr-1" />
+                            {char.speed}
+                          </Badge>
+                        )}
+                      </div>
                     )}
                   </div>
                 </CardContent>
