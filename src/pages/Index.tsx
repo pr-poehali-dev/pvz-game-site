@@ -1,9 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import Icon from "@/components/ui/icon";
+import { useState } from "react";
 
 const Index = () => {
+  const [selectedWorld, setSelectedWorld] = useState(null);
   const characters = [
     // Основные растения
     {
@@ -503,17 +512,476 @@ const Index = () => {
     },
   ];
 
-  const levels = [
-    { name: "День 1-1", difficulty: "Легко", emoji: "☀️", status: "completed" },
-    { name: "День 1-2", difficulty: "Легко", emoji: "☀️", status: "completed" },
-    { name: "Ночь 2-1", difficulty: "Средне", emoji: "🌙", status: "active" },
-    { name: "Туман 3-1", difficulty: "Сложно", emoji: "🌫️", status: "locked" },
-    { name: "Крыша 4-1", difficulty: "Сложно", emoji: "🏠", status: "locked" },
+  const worlds = [
     {
-      name: "Бассейн 5-1",
-      difficulty: "Очень сложно",
+      id: 1,
+      name: "Передний двор",
+      emoji: "☀️",
+      difficulty: "Легко",
+      status: "completed",
+      description: "Дневные уровни на обычной лужайке",
+      newPlants: [
+        "Подсолнух",
+        "Горохострел",
+        "Орех",
+        "Картофельная мина",
+        "Снежный горох",
+        "Поедатель",
+        "Повторитель",
+      ],
+      newZombies: [
+        "Обычный зомби",
+        "Флаговый зомби",
+        "Конусоголовый",
+        "Зомби с шестом",
+        "Ведроголовый",
+      ],
+      levels: [
+        {
+          name: "1-1",
+          description: "Первые зомби атакуют",
+          zombies: ["Обычный зомби"],
+          plants: ["Подсолнух", "Горохострел"],
+          status: "completed",
+        },
+        {
+          name: "1-2",
+          description: "Изучаем защиту",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: ["Орех"],
+          status: "completed",
+        },
+        {
+          name: "1-3",
+          description: "Картофельные взрывы",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: ["Картофельная мина"],
+          status: "completed",
+        },
+        {
+          name: "1-4",
+          description: "Замедляем врагов",
+          zombies: ["Обычный зомби", "Конусоголовый", "Ведроголовый"],
+          plants: ["Снежный горох"],
+          status: "completed",
+        },
+        {
+          name: "1-5",
+          description: "Первая большая волна",
+          zombies: [
+            "Обычный зомби",
+            "Флаговый зомби",
+            "Конусоголовый",
+            "Ведроголовый",
+          ],
+          plants: ["Поедатель"],
+          status: "completed",
+        },
+        {
+          name: "1-6",
+          description: "Двойная мощь",
+          zombies: ["Обычный зомби", "Конусоголовый", "Зомби с шестом"],
+          plants: ["Повторитель"],
+          status: "completed",
+        },
+        {
+          name: "1-7",
+          description: "Прыгающие зомби",
+          zombies: ["Зомби с шестом", "Конусоголовый", "Ведроголовый"],
+          plants: [],
+          status: "completed",
+        },
+        {
+          name: "1-8",
+          description: "Мини-игра: Идущие орехи",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: [],
+          status: "completed",
+        },
+        {
+          name: "1-9",
+          description: "Выбери семена",
+          zombies: ["Все дневные"],
+          plants: [],
+          status: "completed",
+        },
+        {
+          name: "1-10",
+          description: "Босс: Зомботаник",
+          zombies: ["Зомботаник"],
+          plants: [],
+          status: "completed",
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: "Задний двор",
+      emoji: "🌙",
+      difficulty: "Средне",
+      status: "active",
+      description: "Ночные уровни с грибами",
+      newPlants: [
+        "Гриб-пуффер",
+        "Солнечный гриб",
+        "Дымовой гриб",
+        "Могильный гриб",
+        "Гипногриб",
+        "Ледяной гриб",
+        "Гриб-разрушитель",
+      ],
+      newZombies: [
+        "Зомби-газетчик",
+        "Зомби на двери",
+        "Футбольный зомби",
+        "Танцующий зомби",
+        "Зомби-танцор",
+      ],
+      levels: [
+        {
+          name: "2-1",
+          description: "Первая ночь",
+          zombies: ["Обычный зомби"],
+          plants: ["Гриб-пуффер", "Солнечный гриб"],
+          status: "active",
+        },
+        {
+          name: "2-2",
+          description: "Проникающий дым",
+          zombies: ["Обычный зомби", "Зомби-газетчик"],
+          plants: ["Дымовой гриб"],
+          status: "locked",
+        },
+        {
+          name: "2-3",
+          description: "Могилы на поле",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: ["Могильный гриб"],
+          status: "locked",
+        },
+        {
+          name: "2-4",
+          description: "Зомби идут назад",
+          zombies: ["Обычный зомби", "Конусоголовый", "Ведроголовый"],
+          plants: ["Гипногриб"],
+          status: "locked",
+        },
+        {
+          name: "2-5",
+          description: "Заморозка всех",
+          zombies: ["Обычный зомби", "Зомби на двери"],
+          plants: ["Ледяной гриб"],
+          status: "locked",
+        },
+        {
+          name: "2-6",
+          description: "Большой взрыв",
+          zombies: ["Обычный зомби", "Конусоголовый", "Футбольный зомби"],
+          plants: ["Гриб-разрушитель"],
+          status: "locked",
+        },
+        {
+          name: "2-7",
+          description: "Танцующая угроза",
+          zombies: ["Танцующий зомби", "Зомби-танцор"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "2-8",
+          description: "Мини-игра: Боулинг",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "2-9",
+          description: "Выбери семена ночью",
+          zombies: ["Все ночные"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "2-10",
+          description: "Босс: Зомботаник",
+          zombies: ["Зомботаник"],
+          plants: [],
+          status: "locked",
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: "Бассейн",
       emoji: "🏊‍♂️",
+      difficulty: "Сложно",
       status: "locked",
+      description: "Водные уровни с плавающими зомби",
+      newPlants: ["Лилия", "Кабачок", "Треугольник", "Морской гриб"],
+      newZombies: ["Зомби-ныряльщик", "Зомби на санках", "Зомби-дельфинёр"],
+      levels: [
+        {
+          name: "3-1",
+          description: "Первый заплыв",
+          zombies: ["Обычный зомби", "Зомби-ныряльщик"],
+          plants: ["Лилия"],
+          status: "locked",
+        },
+        {
+          name: "3-2",
+          description: "Раздавить сверху",
+          zombies: ["Зомби-ныряльщик"],
+          plants: ["Кабачок"],
+          status: "locked",
+        },
+        {
+          name: "3-3",
+          description: "Колючий треугольник",
+          zombies: ["Обычный зомби", "Зомби-ныряльщик"],
+          plants: ["Треугольник"],
+          status: "locked",
+        },
+        {
+          name: "3-4",
+          description: "Морские грибы",
+          zombies: ["Зомби-ныряльщик"],
+          plants: ["Морской гриб"],
+          status: "locked",
+        },
+        {
+          name: "3-5",
+          description: "Ледяной след",
+          zombies: ["Зомби на санках"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "3-6",
+          description: "Прыжки дельфина",
+          zombies: ["Зомби-дельфинёр"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "3-7",
+          description: "Водная оборона",
+          zombies: ["Все водные"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "3-8",
+          description: "Мини-игра: Слот-машина",
+          zombies: ["Обычный зомби"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "3-9",
+          description: "Выбери семена в бассейне",
+          zombies: ["Все водные"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "3-10",
+          description: "Босс: Зомботаник",
+          zombies: ["Зомботаник"],
+          plants: [],
+          status: "locked",
+        },
+      ],
+    },
+    {
+      id: 4,
+      name: "Туман",
+      emoji: "🌫️",
+      difficulty: "Сложно",
+      status: "locked",
+      description: "Уровни в тумане с ограниченной видимостью",
+      newPlants: [
+        "Кактус",
+        "Трёхгорошек",
+        "Острый камыш",
+        "Торчбумага",
+        "Высокий орех",
+      ],
+      newZombies: ["Зомби-Джек", "Зомби на шаре"],
+      levels: [
+        {
+          name: "4-1",
+          description: "Первый туман",
+          zombies: ["Обычный зомби"],
+          plants: ["Кактус"],
+          status: "locked",
+        },
+        {
+          name: "4-2",
+          description: "Тройная линия",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: ["Трёхгорошек"],
+          status: "locked",
+        },
+        {
+          name: "4-3",
+          description: "Колючий камыш",
+          zombies: ["Обычный зомби"],
+          plants: ["Острый камыш"],
+          status: "locked",
+        },
+        {
+          name: "4-4",
+          description: "Огненная линия",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: ["Торчбумага"],
+          status: "locked",
+        },
+        {
+          name: "4-5",
+          description: "Высокая защита",
+          zombies: ["Зомби с шестом"],
+          plants: ["Высокий орех"],
+          status: "locked",
+        },
+        {
+          name: "4-6",
+          description: "Взрывающийся Джек",
+          zombies: ["Зомби-Джек"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "4-7",
+          description: "Воздушная атака",
+          zombies: ["Зомби на шаре"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "4-8",
+          description: "Мини-игра: Разберись с туманом",
+          zombies: ["Все туманные"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "4-9",
+          description: "Выбери семена в тумане",
+          zombies: ["Все туманные"],
+          plants: [],
+          status: "locked",
+        },
+        {
+          name: "4-10",
+          description: "Босс: Зомботаник",
+          zombies: ["Зомботаник"],
+          plants: [],
+          status: "locked",
+        },
+      ],
+    },
+    {
+      id: 5,
+      name: "Крыша",
+      emoji: "🏠",
+      difficulty: "Очень сложно",
+      status: "locked",
+      description: "Наклонная крыша с катапультами",
+      newPlants: [
+        "Морская звезда",
+        "Кофейное зерно",
+        "Чеснок",
+        "Зонтолист",
+        "Ноготки",
+        "Дыня-пульта",
+        "Гатлинг-горох",
+        "Двойной подсолнух",
+        "Глум-гриб",
+        "Магнит-гриб",
+        "Золотой магнит",
+        "Острый стрелок",
+        "Початок-пушка",
+        "Зимняя дыня",
+      ],
+      newZombies: [
+        "Зомби-шахтёр",
+        "Зомби-попрыгун",
+        "Зомби на лестнице",
+        "Катапульта-зомби",
+        "Гаргантюа",
+      ],
+      levels: [
+        {
+          name: "5-1",
+          description: "На крыше",
+          zombies: ["Обычный зомби"],
+          plants: ["Морская звезда", "Кофейное зерно"],
+          status: "locked",
+        },
+        {
+          name: "5-2",
+          description: "Переключение линий",
+          zombies: ["Обычный зомби", "Конусоголовый"],
+          plants: ["Чеснок"],
+          status: "locked",
+        },
+        {
+          name: "5-3",
+          description: "Защита от катапульт",
+          zombies: ["Катапульта-зомби"],
+          plants: ["Зонтолист"],
+          status: "locked",
+        },
+        {
+          name: "5-4",
+          description: "Отпугиватель тли",
+          zombies: ["Обычный зомби"],
+          plants: ["Ноготки"],
+          status: "locked",
+        },
+        {
+          name: "5-5",
+          description: "Дынная артиллерия",
+          zombies: ["Обычный зомби", "Конусоголовый", "Ведроголовый"],
+          plants: ["Дыня-пульта"],
+          status: "locked",
+        },
+        {
+          name: "5-6",
+          description: "Скорострельность",
+          zombies: ["Обычный зомби", "Футбольный зомби"],
+          plants: ["Гатлинг-горох"],
+          status: "locked",
+        },
+        {
+          name: "5-7",
+          description: "Двойное солнце",
+          zombies: ["Обычный зомби"],
+          plants: ["Двойной подсолнух"],
+          status: "locked",
+        },
+        {
+          name: "5-8",
+          description: "Подземные туннели",
+          zombies: ["Зомби-шахтёр"],
+          plants: ["Глум-гриб", "Магнит-гриб"],
+          status: "locked",
+        },
+        {
+          name: "5-9",
+          description: "Прыжки и лестницы",
+          zombies: ["Зомби-попрыгун", "Зомби на лестнице"],
+          plants: ["Золотой магнит", "Острый стрелок"],
+          status: "locked",
+        },
+        {
+          name: "5-10",
+          description: "Финальная битва",
+          zombies: ["Гаргантюа", "Зомботаник"],
+          plants: ["Початок-пушка", "Зимняя дыня"],
+          status: "locked",
+        },
+      ],
     },
   ];
 
@@ -690,57 +1158,214 @@ const Index = () => {
             Уровни приключений
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {levels.map((level, index) => (
-              <Card
-                key={index}
-                className={`transition-all duration-300 shadow-lg ${
-                  level.status === "completed"
-                    ? "border-plant-green bg-plant-green/5"
-                    : level.status === "active"
-                      ? "border-sun-yellow bg-sun-yellow/5 hover:scale-105"
-                      : "border-gray-300 bg-gray-50 opacity-60"
-                }`}
-              >
-                <CardContent className="p-6 text-center">
-                  <div className="text-5xl mb-4">{level.emoji}</div>
-                  <h4 className="text-xl font-bold mb-2 text-earth-brown">
-                    {level.name}
-                  </h4>
-                  <div className="flex justify-center items-center space-x-2 mb-4">
-                    <Badge
-                      className={`${
-                        level.difficulty === "Легко"
-                          ? "bg-plant-green"
-                          : level.difficulty === "Средне"
-                            ? "bg-sun-yellow text-earth-brown"
-                            : level.difficulty === "Сложно"
-                              ? "bg-zombie-orange"
-                              : "bg-red-600"
-                      } text-white font-bold`}
-                    >
-                      {level.difficulty}
-                    </Badge>
+            {worlds.map((world, index) => (
+              <Dialog key={index}>
+                <DialogTrigger asChild>
+                  <Card
+                    className={`transition-all duration-300 shadow-lg cursor-pointer ${
+                      world.status === "completed"
+                        ? "border-plant-green bg-plant-green/5 hover:scale-105"
+                        : world.status === "active"
+                          ? "border-sun-yellow bg-sun-yellow/5 hover:scale-105"
+                          : "border-gray-300 bg-gray-50 opacity-60 hover:opacity-80"
+                    }`}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className="text-5xl mb-4">{world.emoji}</div>
+                      <h4 className="text-xl font-bold mb-2 text-earth-brown">
+                        {world.name}
+                      </h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        {world.description}
+                      </p>
+                      <div className="flex justify-center items-center space-x-2 mb-4">
+                        <Badge
+                          className={`${
+                            world.difficulty === "Легко"
+                              ? "bg-plant-green"
+                              : world.difficulty === "Средне"
+                                ? "bg-sun-yellow text-earth-brown"
+                                : world.difficulty === "Сложно"
+                                  ? "bg-zombie-orange"
+                                  : "bg-red-600"
+                          } text-white font-bold`}
+                        >
+                          {world.difficulty}
+                        </Badge>
+                        <Badge variant="outline" className="text-gray-600">
+                          <Icon name="List" size={16} className="mr-1" />
+                          {world.levels.length} уровней
+                        </Badge>
+                      </div>
+                      {world.status === "completed" && (
+                        <div className="flex justify-center items-center text-plant-green font-bold">
+                          <Icon name="CheckCircle" size={20} className="mr-1" />
+                          Пройден
+                        </div>
+                      )}
+                      {world.status === "active" && (
+                        <div className="flex justify-center items-center text-sun-yellow font-bold">
+                          <Icon name="Play" size={20} className="mr-1" />
+                          Активен
+                        </div>
+                      )}
+                      {world.status === "locked" && (
+                        <div className="flex justify-center items-center text-gray-400">
+                          <Icon name="Lock" size={20} className="mr-1" />
+                          Заблокирован
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold text-earth-brown flex items-center">
+                      <span className="text-3xl mr-3">{world.emoji}</span>
+                      {world.name}
+                    </DialogTitle>
+                  </DialogHeader>
+
+                  <div className="space-y-6">
+                    {/* World Info */}
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-gray-700 mb-3">{world.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge
+                          className={`${
+                            world.difficulty === "Легко"
+                              ? "bg-plant-green"
+                              : world.difficulty === "Средне"
+                                ? "bg-sun-yellow text-earth-brown"
+                                : world.difficulty === "Сложно"
+                                  ? "bg-zombie-orange"
+                                  : "bg-red-600"
+                          } text-white`}
+                        >
+                          {world.difficulty}
+                        </Badge>
+                        <Badge variant="outline">
+                          {world.levels.length} уровней
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {/* New Plants */}
+                    {world.newPlants.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-bold text-plant-green mb-3 flex items-center">
+                          <Icon name="Leaf" size={20} className="mr-2" />
+                          Новые растения ({world.newPlants.length})
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {world.newPlants.map((plant, idx) => (
+                            <Badge
+                              key={idx}
+                              className="bg-plant-green/10 text-plant-green border border-plant-green"
+                            >
+                              {plant}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* New Zombies */}
+                    {world.newZombies.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-bold text-zombie-orange mb-3 flex items-center">
+                          <Icon name="Skull" size={20} className="mr-2" />
+                          Новые зомби ({world.newZombies.length})
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {world.newZombies.map((zombie, idx) => (
+                            <Badge
+                              key={idx}
+                              className="bg-zombie-orange/10 text-zombie-orange border border-zombie-orange"
+                            >
+                              {zombie}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Levels */}
+                    <div>
+                      <h4 className="text-lg font-bold text-earth-brown mb-3 flex items-center">
+                        <Icon name="Map" size={20} className="mr-2" />
+                        Уровни
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {world.levels.map((level, levelIdx) => (
+                          <Card
+                            key={levelIdx}
+                            className={`${
+                              level.status === "completed"
+                                ? "border-plant-green bg-plant-green/5"
+                                : level.status === "active"
+                                  ? "border-sun-yellow bg-sun-yellow/5"
+                                  : "border-gray-300 bg-gray-50"
+                            }`}
+                          >
+                            <CardContent className="p-4">
+                              <div className="flex justify-between items-start mb-2">
+                                <h5 className="font-bold text-earth-brown">
+                                  {level.name}
+                                </h5>
+                                {level.status === "completed" && (
+                                  <Icon
+                                    name="CheckCircle"
+                                    size={16}
+                                    className="text-plant-green"
+                                  />
+                                )}
+                                {level.status === "active" && (
+                                  <Icon
+                                    name="Play"
+                                    size={16}
+                                    className="text-sun-yellow"
+                                  />
+                                )}
+                                {level.status === "locked" && (
+                                  <Icon
+                                    name="Lock"
+                                    size={16}
+                                    className="text-gray-400"
+                                  />
+                                )}
+                              </div>
+                              <p className="text-sm text-gray-600 mb-3">
+                                {level.description}
+                              </p>
+
+                              {level.plants.length > 0 && (
+                                <div className="mb-2">
+                                  <span className="text-xs font-semibold text-plant-green">
+                                    Новые растения:{" "}
+                                  </span>
+                                  <span className="text-xs text-gray-600">
+                                    {level.plants.join(", ")}
+                                  </span>
+                                </div>
+                              )}
+
+                              <div>
+                                <span className="text-xs font-semibold text-zombie-orange">
+                                  Зомби:{" "}
+                                </span>
+                                <span className="text-xs text-gray-600">
+                                  {level.zombies.join(", ")}
+                                </span>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  {level.status === "completed" && (
-                    <div className="flex justify-center items-center text-plant-green font-bold">
-                      <Icon name="CheckCircle" size={20} className="mr-1" />
-                      Пройден
-                    </div>
-                  )}
-                  {level.status === "active" && (
-                    <Button className="bg-sun-yellow hover:bg-sun-yellow/80 text-earth-brown font-bold">
-                      <Icon name="Play" size={16} className="mr-2" />
-                      Играть
-                    </Button>
-                  )}
-                  {level.status === "locked" && (
-                    <div className="flex justify-center items-center text-gray-400">
-                      <Icon name="Lock" size={20} className="mr-1" />
-                      Заблокирован
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
         </div>
