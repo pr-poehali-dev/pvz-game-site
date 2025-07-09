@@ -556,7 +556,10 @@ const Index = () => {
               <Icon name="Target" size={20} className="mr-2" />
               Уровни
             </Button>
-            <Button className="bg-zombie-orange hover:bg-zombie-orange/80 text-white font-bold">
+            <Button
+              className="bg-zombie-orange hover:bg-zombie-orange/80 text-white font-bold"
+              onClick={() => window.open("https://t.me/mod_pvz00", "_blank")}
+            >
               <Icon name="MessageCircle" size={20} className="mr-2" />
               Telegram
             </Button>
@@ -747,18 +750,19 @@ const Index = () => {
       <section className="bg-zombie-orange text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-4xl font-bold mb-6 font-['Rubik']">
-            Присоединяйся к сообществу! 🎮
+            Новые моды только у нас! 🚀
           </h3>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Получай последние новости, секреты прохождения и общайся с другими
-            игроками в нашем Telegram канале
+            Эксклюзивные моды Plants vs Zombies, секреты прохождения, читы и
+            общение с другими игроками в нашем Telegram канале
           </p>
           <Button
             size="lg"
             className="bg-white text-zombie-orange hover:bg-gray-100 font-bold px-12 py-4 text-lg shadow-lg"
+            onClick={() => window.open("https://t.me/mod_pvz00", "_blank")}
           >
             <Icon name="MessageCircle" size={24} className="mr-3" />
-            Подписаться на канал
+            Подписаться на канал модов
           </Button>
         </div>
       </section>
